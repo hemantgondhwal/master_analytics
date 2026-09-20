@@ -1,0 +1,104 @@
+# ════════════════════════════════════════════════════════════════════
+#  Master Analytic — Server Security (.htaccess)
+# ════════════════════════════════════════════════════════════════════
+
+# ── Disable Directory Listing ─────────────────────────────────────────────────
+Options -Indexes -MultiViews
+
+# ── Security HTTP Headers ─────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # Prevent clickjacking: block this site from being embedded in iframes on
+    # external domains (phishing pages often iframe legitimate sites to overlay
+    # fake login prompts on top)
+    Header always set X-Frame-Options "DENY"
+
+    # Stop browsers from guessing content-types (MIME-confusion attacks)
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Enable the browser's built-in reflected-XSS filter (IE/legacy Chrome/Edge)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Control how much referrer information leaks to third-party domains
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Disable access to sensitive device APIs
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+    # Content Security Policy
+    #   - 'unsafe-inline' required because the page uses inline <style> and <script>
+    #   - script.google.com  → lead-capture image beacon + fetch
+    #   - lh3.googleusercontent.com → Google profile photos in testimonials
+    #   - frame-ancestors 'none' → no iframing allowed (stronger than X-Frame-Options)
+    #   - form-action 'self'     → form data can only POST to this same server
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://lh3.googleusercontent.com https://script.google.com https://script.googleusercontent.com; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; base-uri 'self';"
+
+    # HTTP Strict Transport Security (HSTS)
+    # !! Uncomment ONLY after confirming the site is permanently on HTTPS.
+    # !! A wrong activation locks visitors out of HTTP for 1 year.
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Strip server fingerprinting headers that reveal stack details to attackers
+    Header always unset X-Powered-By
+    Header always unset Server
+</IfModule>
+
+# ── Block Access to Sensitive Files ──────────────────────────────────────────
+# Prevents downloading config, keys, scripts, logs, or backups
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|\.gitignore|google-apps-script\.js)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(log|sql|bak|backup|sh|py|rb|conf|ini|key|pem|crt|p12|pfx)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ── Force HTTPS Redirect ──────────────────────────────────────────────────────
+# !! Uncomment after the SSL certificate is active on this domain !!
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ── Block Vulnerability Scanners and Attack Tools ─────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Reject requests with no user-agent (virtually all legitimate browsers send one)
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    # Known attack and scanning tools
+    RewriteCond %{HTTP_USER_AGENT} (sqlmap|nikto|nmap|masscan|havij|acunetix|nessus|w3af|burpsuite|openvas|metasploit|dirbuster|gobuster|wfuzz|hydra|medusa|aircrack|skipfish) [NC,OR]
+    # Scripted HTTP clients commonly used for abuse
+    RewriteCond %{HTTP_USER_AGENT} (python-requests|python-urllib|go-http-client|libwww-perl|zgrab|curl\/[0-7]\.) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ── Block SQL Injection and XSS Attempts in Query Strings ─────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{QUERY_STRING} (union.*(all|select)|select.*from|insert.*into|drop\s+table|exec\s*\(|xp_cmdshell|<script|javascript:|vbscript:) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ── Miscellaneous Hardening ───────────────────────────────────────────────────
+# Suppress Apache version in error pages
+ServerSignature Off
+
+# Default character encoding
+AddDefaultCharset UTF-8
+
+# ── Browser Caching for Static Assets ────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg             "access plus 1 month"
+    ExpiresByType image/png              "access plus 1 month"
+    ExpiresByType image/webp             "access plus 1 month"
+    ExpiresByType text/css               "access plus 1 week"
+    ExpiresByType text/javascript        "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/html              "access plus 1 hour"
+</IfModule>

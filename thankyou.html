@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — Master Analytic</title>
+  <meta name="description" content="Your enquiry has been received. Our counsellor will call you within 24 hours.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231447E6'/><rect x='4' y='17' width='6' height='11' rx='1.5' fill='%23fff'/><rect x='13' y='11' width='6' height='17' rx='1.5' fill='%23fff'/><rect x='22' y='5' width='6' height='23' rx='1.5' fill='%23fff'/></svg>">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#06142E;--navy-mid:#0D2461;--blue:#1447E6;--blue-lt:#3B6BFF;
+      --amber:#FF9500;--amber-lt:#FFB84D;
+    }
+    html,body{height:100%;font-family:'Segoe UI',Arial,sans-serif}
+    body{
+      min-height:100vh;
+      background:linear-gradient(140deg,var(--navy) 0%,var(--navy-mid) 50%,#1a2a6c 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:24px;overflow:hidden;position:relative;
+    }
+
+    /* Background dots */
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:32px 32px;pointer-events:none;
+    }
+
+    /* Glow blobs */
+    .blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:.18;pointer-events:none}
+    .blob-1{width:400px;height:400px;background:var(--blue);top:-80px;left:-80px}
+    .blob-2{width:350px;height:350px;background:var(--amber);bottom:-60px;right:-60px}
+
+    .card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:24px;
+      padding:52px 44px 44px;
+      max-width:520px;width:100%;
+      text-align:center;
+      backdrop-filter:blur(10px);
+      position:relative;z-index:1;
+      animation:fadeUp .5s ease both;
+    }
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Checkmark circle */
+    .check-wrap{
+      width:80px;height:80px;border-radius:50%;
+      background:linear-gradient(135deg,#10B981,#059669);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 28px;
+      box-shadow:0 0 0 14px rgba(16,185,129,.15),0 8px 24px rgba(16,185,129,.35);
+      animation:popIn .4s .2s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes popIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+    .check-wrap svg{width:36px;height:36px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+    .tag{
+      display:inline-block;background:rgba(255,149,0,.15);
+      border:1px solid rgba(255,149,0,.3);
+      color:var(--amber-lt);font-size:11.5px;font-weight:700;
+      letter-spacing:.6px;text-transform:uppercase;
+      padding:4px 14px;border-radius:20px;margin-bottom:16px;
+    }
+
+    h1{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px}
+    h1 span{color:var(--amber)}
+
+    .sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.7;max-width:380px;margin:0 auto 32px}
+
+    /* Steps */
+    .steps{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;text-align:left}
+    .step{
+      display:flex;align-items:flex-start;gap:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;padding:14px 16px;
+    }
+    .step-num{
+      width:30px;height:30px;border-radius:50%;flex-shrink:0;
+      background:linear-gradient(135deg,var(--blue),var(--blue-lt));
+      display:flex;align-items:center;justify-content:center;
+      font-size:12px;font-weight:800;color:#fff;
+    }
+    .step-text strong{display:block;font-size:13.5px;font-weight:700;color:#fff;margin-bottom:2px}
+    .step-text span{font-size:12.5px;color:rgba(255,255,255,.5)}
+
+    /* Buttons */
+    .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-home{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(90deg,var(--blue),var(--blue-lt));
+      color:#fff;font-weight:700;font-size:14px;
+      padding:13px 28px;border-radius:50px;text-decoration:none;
+      transition:all .22s;box-shadow:0 4px 16px rgba(20,71,230,.4);
+    }
+    .btn-home:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,71,230,.55)}
+    .btn-wa{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(37,211,102,.15);border:1.5px solid rgba(37,211,102,.35);
+      color:#4ADE80;font-weight:700;font-size:14px;
+      padding:13px 24px;border-radius:50px;text-decoration:none;
+      transition:all .22s;
+    }
+    .btn-wa:hover{background:rgba(37,211,102,.25);transform:translateY(-2px)}
+    .btn-wa svg,.btn-home svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+
+    .footer-note{margin-top:28px;font-size:12px;color:rgba(255,255,255,.28);line-height:1.6}
+    .footer-note a{color:rgba(255,255,255,.45);text-decoration:none}
+    .footer-note a:hover{color:var(--amber-lt)}
+  @media(max-width:640px){
+    body{padding:16px;justify-content:flex-start;padding-top:32px;overflow-y:auto}
+    .card{padding:36px 24px 32px;border-radius:16px}
+    h1{font-size:24px}
+    .sub{font-size:14px}
+    .step{padding:12px 14px}
+    .step-text strong{font-size:13px}
+    .step-text span{font-size:12px}
+    .btns{flex-direction:column}
+    .btn-home,.btn-wa{width:100%;justify-content:center}
+    .check-wrap{width:68px;height:68px}
+    .check-wrap svg{width:30px;height:30px}
+    .blob{display:none}
+  }
+  @media(max-width:420px){
+    .card{padding:28px 16px 24px}
+    h1{font-size:21px}
+    .steps{gap:8px}
+  }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="card">
+    <div class="check-wrap">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+
+    <span class="tag">Enquiry Received</span>
+    <h1>You're All Set, <span>Welcome!</span></h1>
+    <p class="sub">Our career counsellor will call you within <strong style="color:#fff">24 hours</strong> to schedule your free demo class.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Counsellor Call</strong>
+          <span>We'll call you within 24 hours to understand your goals</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Free Demo Class</strong>
+          <span>Attend a live session — no commitment, no payment required</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Start Your Journey</strong>
+          <span>Enroll, learn with real projects, and get placed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btns">
+      <a href="index.html" class="btn-home">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Back to Home
+      </a>
+      <a href="https://wa.me/917428703467?text=Hi%2C%20I%20just%20submitted%20an%20enquiry%20on%20Master%20Analytic" target="_blank" rel="noopener" class="btn-wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.556 4.116 1.529 5.845L.057 23.54a.75.75 0 0 0 .917.913l5.701-1.47A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.952 9.952 0 0 1-5.093-1.395l-.362-.216-3.747.966.992-3.648-.236-.376A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+
+    <p class="footer-note">
+      Questions? Call us at <a href="tel:+917428703467">+91 74287 03467</a> &nbsp;&middot;&nbsp;
+      <a href="mailto:masteranalytics.india@gmail.com">masteranalytics.india@gmail.com</a>
+    </p>
+  </div>
+</body>
+</html>
