@@ -115,6 +115,12 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     @mail($email, $autoSubject, $autoHtml, $autoHeaders);
 }
 
+if (isset($_POST['ajax']) || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false)) {
+    header('Content-Type: application/json');
+    echo json_encode(array('status' => 'success', 'redirect' => 'thankyou.html'));
+    exit;
+}
+
 header('Location: thankyou.html');
 exit;
 
