@@ -61,7 +61,7 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; width: 100%; }
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: var(--body);
@@ -69,6 +69,7 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      width: 100%;
     }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
@@ -1726,6 +1727,118 @@
       margin-top: 3px;
     }
 
+    /* Mobile Navigation Drawer */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 10, 30, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      max-width: 86vw;
+      height: 100%;
+      background: #fff;
+      z-index: 9999;
+      box-shadow: -6px 0 30px rgba(0, 0, 0, 0.28);
+      transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .mobile-nav-drawer.active {
+      right: 0;
+    }
+    .mobile-nav-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--sl200);
+      background: var(--cool-white);
+    }
+    .mobile-nav-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--sl100);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .mobile-nav-close:hover { background: var(--sl200); }
+    .mobile-nav-close svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+    }
+    .mobile-nav-links a {
+      padding: 13px 22px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--navy);
+      border-bottom: 1px solid var(--sl100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s;
+    }
+    .mobile-nav-links a span { color: var(--blue); font-weight: 700; }
+    .mobile-nav-links a:hover {
+      background: var(--cool-white);
+      color: var(--blue);
+      padding-left: 26px;
+    }
+    .mobile-nav-footer {
+      margin-top: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--cool-white);
+      border-top: 1px solid var(--sl200);
+    }
+    .mobile-nav-call {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px;
+      border-radius: var(--r-sm);
+      background: var(--blue);
+      color: #fff !important;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+    .mobile-nav-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px;
+      border-radius: var(--r-sm);
+      background: #25D366;
+      color: #fff !important;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
     /* Responsive Breakpoints */
     @media (max-width: 1024px) {
       .hero-container { grid-template-columns: 1fr; gap: 36px; }
@@ -1740,39 +1853,78 @@
     }
 
     @media (max-width: 768px) {
-      body { padding-bottom: 64px; }
+      body { padding-bottom: 84px; }
+      body.modal-open .mobile-sticky-bar { display: none !important; }
       .mobile-sticky-bar { display: block; }
       .desktop-floating { display: none; }
       .nav-links, .nav-right-actions { display: none; }
-      .hamburger { display: block; }
-      .hero { padding: 44px 16px 56px; }
-      .section { padding: 56px 16px; }
+      .hamburger { display: flex; align-items: center; justify-content: center; }
+      .hero { padding: 40px 16px 50px; }
+      .section { padding: 50px 16px; }
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary,
+      .hero-actions .btn-wa-pill,
+      .hero-actions .btn-call-pill {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
       .courses-grid { grid-template-columns: 1fr; }
+      .course-card-inner { padding: 22px 18px; }
+      .course-btns { grid-template-columns: 1fr; gap: 8px; width: 100%; }
+      .btn-course-enroll, .btn-course-syl { width: 100%; }
       .batches-grid { grid-template-columns: 1fr; }
       .mentors-grid { grid-template-columns: 1fr; }
       .locations-grid { grid-template-columns: 1fr; }
       .why-grid { grid-template-columns: 1fr; }
       .cta-grid { grid-template-columns: 1fr; gap: 32px; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; }
-      .gallery-item.gw { grid-column: span 1; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; gap: 10px; }
+      .gallery-item.gw { grid-column: span 2; }
       .gallery-item.gt { grid-row: span 1; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-      .stats-inner { grid-template-columns: 1fr 1fr; }
-      .roles-grid { grid-template-columns: 1fr 1fr; }
-      .popup-box { border-radius: var(--r-md); }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 14px; }
+      .footer-legal { flex-wrap: wrap; justify-content: center; gap: 16px; width: 100%; }
+      .stats-inner { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat-box:nth-child(5) { grid-column: span 2; }
+      .stat-box {
+        border-right: none;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: var(--r-sm);
+        padding: 12px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .roles-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .popup-overlay { padding: 12px; }
+      .popup-box { max-height: 94vh; width: 100%; border-radius: var(--r-md); }
+      .popup-header-band { padding: 18px 20px 16px; }
+      .popup-form-body { padding: 18px 18px 24px; }
     }
 
     @media (max-width: 480px) {
-      .hero-form-card { padding: 22px 18px; }
-      .hero-actions { flex-direction: column; width: 100%; }
-      .hero-actions .btn-primary, .hero-actions .btn-secondary, .hero-actions .btn-wa-pill, .hero-actions .btn-call-pill {
-        width: 100%; justify-content: center;
-      }
-      .course-btns { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: 1fr; }
-      .stat-box { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-      .course-card-inner { padding: 20px 18px; }
+      .urgency-bar { font-size: 11.5px; padding: 8px 12px; gap: 6px; line-height: 1.4; }
+      .urgency-cta { display: none; }
+      .hero { padding: 32px 14px 44px; }
+      .hero h1 { font-size: 27px; line-height: 1.2; }
+      .hero-eyebrow { font-size: 11px; padding: 4px 12px; }
+      .hero-sub { font-size: 14px; line-height: 1.6; }
+      .hero-form-card { padding: 22px 16px; }
+      .hero-form-header h3 { font-size: 19px; }
+      .section-title { font-size: 24px; }
+      .section-sub { font-size: 14px; }
+      .course-meta-grid { grid-template-columns: 1fr; gap: 8px; padding: 10px 12px; }
+      .batch-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .syl-magnet-banner { padding: 24px 16px; }
+      .btn-syl-magnet { width: 100%; justify-content: center; }
+      .cta-form-box { padding: 24px 18px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 180px; }
+      .gallery-item.gw { grid-column: span 1; }
+      .testi-card { width: 290px; padding: 18px; }
     }
   </style>
 </head>
@@ -1822,11 +1974,49 @@
         <button class="nav-enroll" onclick="openDemoModal()">Book Free Demo</button>
       </div>
 
-      <button class="hamburger" onclick="openDemoModal()" aria-label="Book Demo">
+      <button class="hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </nav>
+
+  <!-- Mobile Navigation Drawer Overlay & Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+    <div class="mobile-nav-head">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg>
+        </div>
+        <span class="logo-name">Master<span>Analytics</span></span>
+      </div>
+      <button class="mobile-nav-close" onclick="closeMobileNav()" aria-label="Close Navigation">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#batches" onclick="closeMobileNav()">Upcoming Batches <span>&rarr;</span></a>
+      <a href="#courses" onclick="closeMobileNav()">Courses &amp; Curriculum <span>&rarr;</span></a>
+      <a href="#mentors" onclick="closeMobileNav()">Ex-MNC Trainers <span>&rarr;</span></a>
+      <a href="#partners" onclick="closeMobileNav()">350+ Hiring Partners <span>&rarr;</span></a>
+      <a href="#placement" onclick="closeMobileNav()">Placement &amp; Salary <span>&rarr;</span></a>
+      <a href="#locations" onclick="closeMobileNav()">Delhi &amp; Mumbai Campuses <span>&rarr;</span></a>
+      <a href="#reviews" onclick="closeMobileNav()">Student Reviews (4.9★) <span>&rarr;</span></a>
+      <a href="#faq" onclick="closeMobileNav()">Frequently Asked Questions <span>&rarr;</span></a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="tel:+917428703467" class="mobile-nav-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call: +91 74287 03467
+      </a>
+      <a href="https://wa.me/917428703467?text=Hi%2C%20I%20want%20details%20about%20upcoming%20batches." target="_blank" rel="noopener" class="mobile-nav-wa" onclick="trackWhatsAppConversion()">
+        WhatsApp Us Directly
+      </a>
+      <button class="nav-enroll" style="width:100%; padding:12px; text-align:center; border:none; cursor:pointer;" onclick="closeMobileNav(); openDemoModal();">
+        Book Free Demo Class
+      </button>
+    </div>
+  </div>
 
   <!-- HERO SECTION WITH INSTANT GOOGLE ADS LEAD FORM -->
   <section class="hero">
@@ -3224,6 +3414,7 @@
       var modal = document.getElementById('demoModal');
       if (modal) {
         modal.classList.add('active');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         if (courseName) {
           var select = document.getElementById('m-course');
@@ -3243,6 +3434,7 @@
       var modal = document.getElementById('syllabusModal');
       if (modal) {
         modal.classList.add('active');
+        document.body.classList.add('modal-open');
         document.body.style.overflow = 'hidden';
         if (courseName) {
           var select = document.getElementById('s-course');
@@ -3262,6 +3454,41 @@
       var modal = document.getElementById(modalId);
       if (modal) {
         modal.classList.remove('active');
+        var demoModal = document.getElementById('demoModal');
+        var sylModal = document.getElementById('syllabusModal');
+        var anyModalActive = (demoModal && demoModal.classList.contains('active')) || (sylModal && sylModal.classList.contains('active'));
+        if (!anyModalActive) {
+          document.body.classList.remove('modal-open');
+          document.body.style.overflow = '';
+        }
+      }
+    }
+
+    // Mobile Navigation Drawer
+    function toggleMobileNav() {
+      var drawer = document.getElementById('mobileNavDrawer');
+      var overlay = document.getElementById('mobileNavOverlay');
+      if (drawer && overlay) {
+        var isOpen = drawer.classList.contains('active');
+        if (isOpen) {
+          closeMobileNav();
+        } else {
+          drawer.classList.add('active');
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+    }
+
+    function closeMobileNav() {
+      var drawer = document.getElementById('mobileNavDrawer');
+      var overlay = document.getElementById('mobileNavOverlay');
+      if (drawer) drawer.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
+      var demoModal = document.getElementById('demoModal');
+      var sylModal = document.getElementById('syllabusModal');
+      var anyModalActive = (demoModal && demoModal.classList.contains('active')) || (sylModal && sylModal.classList.contains('active'));
+      if (!anyModalActive) {
         document.body.style.overflow = '';
       }
     }
@@ -3369,11 +3596,12 @@
       }
     });
 
-    // Close modal on Escape
+    // Close modal & drawer on Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeModal('demoModal');
         closeModal('syllabusModal');
+        closeMobileNav();
       }
     });
   </script>
