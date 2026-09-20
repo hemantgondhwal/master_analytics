@@ -366,6 +366,33 @@
     }
     .btn-wa-pill:hover { background: #20BA5A; transform: translateY(-1px); }
     .btn-wa-pill svg { width: 17px; height: 17px; fill: #fff; }
+    .btn-call-pill {
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 20px;
+      border-radius: var(--r-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-call-pill:hover {
+      background: #0d38bd;
+      border-color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(20, 71, 230, 0.35);
+    }
+    .btn-call-pill svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.2;
+    }
 
     /* Hero Trust Badges */
     .hero-trust-badges {
@@ -1738,7 +1765,7 @@
     @media (max-width: 480px) {
       .hero-form-card { padding: 22px 18px; }
       .hero-actions { flex-direction: column; width: 100%; }
-      .hero-actions .btn-primary, .hero-actions .btn-secondary, .hero-actions .btn-wa-pill {
+      .hero-actions .btn-primary, .hero-actions .btn-secondary, .hero-actions .btn-wa-pill, .hero-actions .btn-call-pill {
         width: 100%; justify-content: center;
       }
       .course-btns { grid-template-columns: 1fr; }
@@ -1837,6 +1864,10 @@
           <a href="https://wa.me/917428703467?text=Hi%2C%20I%20want%20details%20about%20the%20upcoming%20Data%20Analytics%20batch%20at%20Master%20Analytics." target="_blank" rel="noopener" class="btn-wa-pill" onclick="trackWhatsAppConversion()">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
             WhatsApp Us
+          </a>
+          <a href="tel:+917428703467" class="btn-call-pill" title="Call Us Directly at +91 74287 03467">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            Call Us
           </a>
         </div>
 
