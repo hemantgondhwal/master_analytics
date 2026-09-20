@@ -864,38 +864,65 @@
     .course-card:nth-child(3) { border-top: 4px solid #059669; }
     .course-card:nth-child(4) { border-top: 4px solid var(--amber); }
 
-    .course-card-inner {
-      padding: 28px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .course-thumb {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
     }
-    .course-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
+    .course-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
     }
-    .course-level {
+    .course-card:hover .course-thumb img {
+      transform: scale(1.05);
+    }
+    .course-thumb-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      padding: 4px 11px;
+      padding: 4px 12px;
       border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      z-index: 2;
     }
-    .course-card:nth-child(1) .course-level { background: #EFF6FF; color: var(--blue); }
-    .course-card:nth-child(2) .course-level { background: #F5F3FF; color: #7C3AED; }
-    .course-card:nth-child(3) .course-level { background: #ECFDF5; color: #059669; }
-    .course-card:nth-child(4) .course-level { background: #FFFBEB; color: #D97706; }
-    .course-rating {
+    .course-thumb-badge.b1 { background: var(--blue); color: #fff; }
+    .course-thumb-badge.b2 { background: #7C3AED; color: #fff; }
+    .course-thumb-badge.b3 { background: #059669; color: #fff; }
+    .course-thumb-badge.b4 { background: var(--amber); color: #000; }
+    .course-thumb-rating {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(6, 20, 46, 0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--amber);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--amber);
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .course-card-inner {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .course-title {
@@ -1925,6 +1952,9 @@
       .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 180px; }
       .gallery-item.gw { grid-column: span 1; }
       .testi-card { width: 290px; padding: 18px; }
+      .course-thumb { height: 170px; }
+      .course-thumb-badge { top: 10px; left: 10px; font-size: 10px; padding: 3px 9px; }
+      .course-thumb-rating { top: 10px; right: 10px; font-size: 10.5px; padding: 3px 8px; }
     }
   </style>
 </head>
@@ -2397,12 +2427,13 @@
       <div class="courses-grid">
         <!-- Course 1 -->
         <div class="course-card">
+          <div class="course-thumb">
+            <img src="photos/course-python-analytics.jpg" alt="Data Analytics with Python + GenAI Course" loading="lazy">
+            <span class="course-thumb-badge b1">Foundation to Pro</span>
+            <span class="course-thumb-rating">★ 4.9 (520+ Reviews)</span>
+          </div>
           <div class="course-card-inner">
             <div>
-              <div class="course-top-row">
-                <span class="course-level">Foundation to Pro</span>
-                <span class="course-rating">★ 4.9 (520+ Reviews)</span>
-              </div>
               <div class="course-title">Data Analytics with Python + GenAI</div>
               <div class="course-desc">
                 The most popular industry track. Master end-to-end data manipulation, SQL database querying, dynamic business dashboards in Power BI/Tableau, and Python automated workflows.
@@ -2434,12 +2465,13 @@
 
         <!-- Course 2 -->
         <div class="course-card">
+          <div class="course-thumb">
+            <img src="photos/course-data-science.jpg" alt="Data Science with Machine Learning + GenAI Course" loading="lazy">
+            <span class="course-thumb-badge b2">Advanced Track</span>
+            <span class="course-thumb-rating">★ 4.8 (410+ Reviews)</span>
+          </div>
           <div class="course-card-inner">
             <div>
-              <div class="course-top-row">
-                <span class="course-level">Advanced Track</span>
-                <span class="course-rating">★ 4.8 (410+ Reviews)</span>
-              </div>
               <div class="course-title">Data Science with Machine Learning + GenAI</div>
               <div class="course-desc">
                 The complete Data Science specialization. Learn statistical modeling, predictive algorithms, machine learning model deployment, and real Generative AI applications.
@@ -2472,12 +2504,13 @@
 
         <!-- Course 3 -->
         <div class="course-card">
+          <div class="course-thumb">
+            <img src="photos/course-bi-genai.jpg" alt="Data Analytics with GenAI Course" loading="lazy">
+            <span class="course-thumb-badge b3">Beginner Friendly</span>
+            <span class="course-thumb-rating">★ 4.9 (680+ Reviews)</span>
+          </div>
           <div class="course-card-inner">
             <div>
-              <div class="course-top-row">
-                <span class="course-level">Beginner Friendly</span>
-                <span class="course-rating">★ 4.9 (680+ Reviews)</span>
-              </div>
               <div class="course-title">Data Analytics with GenAI</div>
               <div class="course-desc">
                 Ideal entry path for freshers, B.Com, BBA, and non-coding graduates. Focuses purely on high-impact business analysis, SQL querying, executive KPI dashboarding, and Generative AI productivity tools.
@@ -2508,12 +2541,13 @@
 
         <!-- Course 4 -->
         <div class="course-card">
+          <div class="course-thumb">
+            <img src="photos/course-mis-reporting.jpg" alt="MIS & Reporting Specialist Course" loading="lazy">
+            <span class="course-thumb-badge b4">Corporate Specialist</span>
+            <span class="course-thumb-rating">★ 4.8 (340+ Reviews)</span>
+          </div>
           <div class="course-card-inner">
             <div>
-              <div class="course-top-row">
-                <span class="course-level">Corporate Specialist</span>
-                <span class="course-rating">★ 4.8 (340+ Reviews)</span>
-              </div>
               <div class="course-title">MIS &amp; Reporting Specialist</div>
               <div class="course-desc">
                 Crafted for finance, operations, HR, and sales professionals. Master advanced formulas, pivot modeling, SQL database extraction, and automated management reports.
