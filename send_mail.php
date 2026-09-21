@@ -5,7 +5,7 @@ $NOTIFY_EMAILS = array(
     'Analyticsproschool@gmail.com',
     'support@thexlacademy.com',
 );
-define('SITE_NAME',   'Master Analytic');
+define('SITE_NAME',   'Master Analytics');
 define('PHONE',       '+91 74287 03467');
 define('APPS_SCRIPT', 'https://script.google.com/macros/s/AKfycbxVL7AnbhP-IqDZytTudemR_c4Omp-uGs7U5KfNzeN5EraZlAZ4sqrYLU75annkc30wEg/exec');
 

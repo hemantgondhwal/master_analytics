@@ -24,13 +24,8 @@ Options -Indexes -MultiViews
     # Disable access to sensitive device APIs
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 
-    # Content Security Policy
-    #   - 'unsafe-inline' required because the page uses inline <style> and <script>
-    #   - script.google.com  → lead-capture image beacon + fetch
-    #   - lh3.googleusercontent.com → Google profile photos in testimonials
-    #   - frame-ancestors 'none' → no iframing allowed (stronger than X-Frame-Options)
-    #   - form-action 'self'     → form data can only POST to this same server
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://lh3.googleusercontent.com https://script.google.com https://script.googleusercontent.com; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; base-uri 'self';"
+    # Content Security Policy (allows Google Tag Manager, Google Ads & Lead capture)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://stats.g.doubleclick.net https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net; frame-src 'self' https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'none'; form-action 'self'; object-src 'none'; base-uri 'self';"
 
     # HTTP Strict Transport Security (HSTS)
     # !! Uncomment ONLY after confirming the site is permanently on HTTPS.
