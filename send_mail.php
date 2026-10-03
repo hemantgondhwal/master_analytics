@@ -44,11 +44,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 // ── 1. Save to Google Sheet via curl ─────────────────────────────────────────
 $sheetSource = ($action !== 'Demo Enquiry' ? '[' . $action . '] ' : '') . ($course ? 'Course: ' . $course . ' | ' : '') . ($source ? $source : 'Website');
 $gsParams = http_build_query(array(
-    'name'   => $name,
-    'phone'  => $phone,
-    'email'  => $email,
-    'city'   => $city,
-    'source' => $sheetSource,
+    'name'      => $name,
+    'phone'     => $phone,
+    'email'     => $email,
+    'city'      => $city,
+    'source'    => $sheetSource,
+    'notify_to' => 'masteranalytics.india@gmail.com, support@thexlacademy.com',
 ));
 
 if (function_exists('curl_init')) {
@@ -92,8 +93,9 @@ if (defined('NOTIFY_CC') && NOTIFY_CC) {
 $headers .= 'Reply-To: ' . $email . "\r\n"
           . 'X-Mailer: PHP/' . phpversion();
 
-$toNotify = implode(', ', $NOTIFY_EMAILS);
-@mail($toNotify, $subject, $html, $headers);
+foreach ($NOTIFY_EMAILS as $recipient) {
+    @mail($recipient, $subject, $html, $headers);
+}
 
 // ── 3. Auto-reply to student ──────────────────────────────────────────────────
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
