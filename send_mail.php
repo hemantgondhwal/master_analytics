@@ -3,8 +3,8 @@ define('NOTIFY_TO',   'masteranalytics.india@gmail.com');
 $NOTIFY_EMAILS = array(
     'masteranalytics.india@gmail.com',
     'Analyticsproschool@gmail.com',
-    'support@thexlacademy.com',
 );
+define('NOTIFY_CC',   'support@thexlacademy.com');
 define('SITE_NAME',   'Master Analytics');
 define('PHONE',       '+91 74287 03467');
 define('APPS_SCRIPT', 'https://script.google.com/macros/s/AKfycbxVL7AnbhP-IqDZytTudemR_c4Omp-uGs7U5KfNzeN5EraZlAZ4sqrYLU75annkc30wEg/exec');
@@ -60,7 +60,7 @@ if (function_exists('curl_init')) {
 
 // ── 2. Notification email ─────────────────────────────────────────────────────
 $ts      = date('d M Y, h:i A');
-$subject = 'New Lead (' . $action . '): ' . $name . ' - ' . SITE_NAME;
+$subject = 'Master Analytics Leads - ' . $name;
 $cityVal = $city ? $city : '-';
 
 $html = '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">'
@@ -82,12 +82,12 @@ $html = '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto"
 $headers = 'MIME-Version: 1.0' . "\r\n"
          . 'Content-Type: text/html; charset=UTF-8' . "\r\n"
          . 'From: ' . SITE_NAME . ' <noreply@masteranalytics.in>' . "\r\n"
+         . 'Cc: ' . NOTIFY_CC . "\r\n"
          . 'Reply-To: ' . $email . "\r\n"
          . 'X-Mailer: PHP/' . phpversion();
 
-foreach ($NOTIFY_EMAILS as $recipient) {
-    @mail($recipient, $subject, $html, $headers);
-}
+$toNotify = implode(', ', $NOTIFY_EMAILS);
+@mail($toNotify, $subject, $html, $headers);
 
 // ── 3. Auto-reply to student ──────────────────────────────────────────────────
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
