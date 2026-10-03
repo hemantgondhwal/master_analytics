@@ -59,7 +59,7 @@ function sendMail(d) {
     '<div style="background:#f3f4f6;padding:12px 28px;border-radius:0 0 10px 10px;font-size:11px;color:#9ca3af;border:1px solid #e5e7eb;border-top:none">Master Analytic — Automated lead alert</div>' +
     '</div>';
 
-  MailApp.sendEmail({ to: NOTIFY_TO, cc: NOTIFY_CC, subject: 'Master Analytics Leads - ' + n, htmlBody: html, replyTo: em || NOTIFY_TO });
+  MailApp.sendEmail({ to: NOTIFY_TO, cc: NOTIFY_CC, subject: 'New Lead: Master Analytics - ' + n, htmlBody: html, replyTo: em || NOTIFY_TO });
 
   // auto-reply to student
   if (em) {

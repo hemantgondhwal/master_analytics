@@ -63,7 +63,7 @@ if (function_exists('curl_init')) {
 
 // ── 2. Notification email ─────────────────────────────────────────────────────
 $ts      = date('d M Y, h:i A');
-$subject = 'Master Analytics Leads - ' . $name;
+$subject = 'New Lead: Master Analytics - ' . $name;
 $cityVal = $city ? $city : '-';
 
 $html = '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">'
