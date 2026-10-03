@@ -484,19 +484,51 @@
     }
     .form-ctrl {
       width: 100%;
-      padding: 11px 14px;
+      height: 48px;
+      padding: 12px 16px;
       border: 1.5px solid var(--sl200);
-      border-radius: var(--r-sm);
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 14.5px;
       color: var(--sl800);
       background: #F8FAFC;
       transition: all 0.2s;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .form-ctrl::placeholder {
+      color: #94a3b8;
+      font-weight: 500;
     }
     .form-ctrl:focus {
       outline: none;
       border-color: var(--blue);
       background: #fff;
       box-shadow: 0 0 0 3px rgba(20, 71, 230, 0.12);
+    }
+    select.form-ctrl {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 15px 15px;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    select.form-ctrl:invalid,
+    select.form-ctrl option[value=""] {
+      color: #94a3b8;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
     .phone-field-wrap {
       display: flex;
@@ -2112,45 +2144,33 @@
         <form id="heroForm" action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'hero')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Hero Free Demo">
+          <input type="hidden" name="city" value="-">
 
           <div class="hero-form-body">
             <div class="form-group">
-              <label class="form-label" for="h-name">Full Name *</label>
-              <input type="text" id="h-name" name="name" class="form-ctrl" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+              <label class="sr-only" for="h-name">Full Name *</label>
+              <input type="text" id="h-name" name="name" class="form-ctrl" placeholder="Full Name *" required autocomplete="name">
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="h-phone">Mobile / WhatsApp Number *</label>
-              <div class="phone-field-wrap">
-                <span class="flag-prefix">🇮🇳 +91</span>
-                <input type="tel" id="h-phone" name="phone" placeholder="98765 43210" required autocomplete="tel" maxlength="10">
-              </div>
+              <label class="sr-only" for="h-phone">Mobile / WhatsApp Number *</label>
+              <input type="tel" id="h-phone" name="phone" class="form-ctrl" placeholder="Mobile / WhatsApp Number *" required autocomplete="tel" maxlength="14">
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="h-email">Email Address *</label>
-              <input type="email" id="h-email" name="email" class="form-ctrl" placeholder="your@email.com" required autocomplete="email">
+              <label class="sr-only" for="h-email">Email Address *</label>
+              <input type="email" id="h-email" name="email" class="form-ctrl" placeholder="Email Address *" required autocomplete="email">
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="h-course">Select Program *</label>
+              <label class="sr-only" for="h-course">Select Course Interested In *</label>
               <select id="h-course" name="course" class="form-ctrl" required>
-                <option value="">-- Choose Desired Course --</option>
+                <option value="" disabled selected>Select Course Interested In *</option>
                 <option value="Data Analytics with Python + GenAI (6 Months)">Data Analytics with Python + GenAI (6 Months)</option>
                 <option value="Data Science with ML + GenAI (8 Months)">Data Science with Machine Learning + GenAI (8 Months)</option>
                 <option value="Data Analytics (4 Months)">Data Analytics - Power BI / SQL / Excel (4 Months)</option>
                 <option value="MIS & Reporting (4 Months)">MIS &amp; Reporting Specialist (4 Months)</option>
                 <option value="Business Analytics & AI">Generative AI &amp; Business Analytics</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="h-city">Preferred Centre / Mode *</label>
-              <select id="h-city" name="city" class="form-ctrl" required>
-                <option value="">-- Select Learning Mode --</option>
-                <option value="Delhi - Dwarka Sector 13 (Classroom)">Delhi Campus (Dwarka Sector 13, opp Metro)</option>
-                <option value="Mumbai - Andheri East (Classroom)">Mumbai Campus (Andheri East, Chandak Chambers)</option>
-                <option value="Live Interactive Online Batch">Live Interactive Online (Pan-India)</option>
               </select>
             </div>
 
@@ -3169,41 +3189,30 @@
         <form action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'bottom')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Footer Enquiry">
+          <input type="hidden" name="city" value="-">
 
           <div style="display:flex; flex-direction:column; gap:12px;">
-            <div>
-              <label class="form-label" for="b-name">Full Name *</label>
-              <input type="text" id="b-name" name="name" class="form-ctrl" placeholder="e.g. Rahul Sharma" required>
+            <div class="form-group">
+              <label class="sr-only" for="b-name">Full Name *</label>
+              <input type="text" id="b-name" name="name" class="form-ctrl" placeholder="Full Name *" required>
             </div>
-            <div>
-              <label class="form-label" for="b-phone">Phone Number *</label>
-              <div class="phone-field-wrap">
-                <span class="flag-prefix">🇮🇳 +91</span>
-                <input type="tel" id="b-phone" name="phone" placeholder="98765 43210" required maxlength="10">
-              </div>
+            <div class="form-group">
+              <label class="sr-only" for="b-phone">Mobile / WhatsApp Number *</label>
+              <input type="tel" id="b-phone" name="phone" class="form-ctrl" placeholder="Mobile / WhatsApp Number *" required maxlength="14">
             </div>
-            <div>
-              <label class="form-label" for="b-email">Email Address *</label>
-              <input type="email" id="b-email" name="email" class="form-ctrl" placeholder="your@email.com" required>
+            <div class="form-group">
+              <label class="sr-only" for="b-email">Email Address *</label>
+              <input type="email" id="b-email" name="email" class="form-ctrl" placeholder="Email Address *" required>
             </div>
-            <div>
-              <label class="form-label" for="b-course">Course Interested In *</label>
+            <div class="form-group">
+              <label class="sr-only" for="b-course">Select Course Interested In *</label>
               <select id="b-course" name="course" class="form-ctrl" required>
-                <option value="">-- Choose Desired Course --</option>
+                <option value="" disabled selected>Select Course Interested In *</option>
                 <option value="Data Analytics with Python + GenAI (6 Months)">Data Analytics with Python + GenAI (6 Months)</option>
                 <option value="Data Science with ML + GenAI (8 Months)">Data Science with Machine Learning + GenAI (8 Months)</option>
-                <option value="Data Analytics (4 Months)">Data Analytics (4 Months)</option>
-                <option value="MIS & Reporting (4 Months)">MIS &amp; Reporting (4 Months)</option>
+                <option value="Data Analytics (4 Months)">Data Analytics - Power BI / SQL / Excel (4 Months)</option>
+                <option value="MIS & Reporting (4 Months)">MIS &amp; Reporting Specialist (4 Months)</option>
                 <option value="Business Analytics & AI">Generative AI &amp; Business Analytics</option>
-              </select>
-            </div>
-            <div>
-              <label class="form-label" for="b-city">Preferred City / Center *</label>
-              <select id="b-city" name="city" class="form-ctrl" required>
-                <option value="">-- Select Center --</option>
-                <option value="Delhi Campus">Delhi Campus (Dwarka Sector 13)</option>
-                <option value="Mumbai Campus">Mumbai Campus (Andheri East)</option>
-                <option value="Online Live Classes">Online Live Interactive Classes</option>
               </select>
             </div>
 
@@ -3330,40 +3339,30 @@
         <form action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'demoModal')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Popup Free Demo">
+          <input type="hidden" name="city" value="-">
 
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div class="form-group">
-              <label class="form-label" for="m-name">Full Name *</label>
-              <input type="text" id="m-name" name="name" class="form-ctrl" placeholder="e.g. Rahul Sharma" required>
+              <label class="sr-only" for="m-name">Full Name *</label>
+              <input type="text" id="m-name" name="name" class="form-ctrl" placeholder="Full Name *" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="m-phone">Mobile / WhatsApp Number *</label>
-              <div class="phone-field-wrap">
-                <span class="flag-prefix">🇮🇳 +91</span>
-                <input type="tel" id="m-phone" name="phone" placeholder="98765 43210" required maxlength="10">
-              </div>
+              <label class="sr-only" for="m-phone">Mobile / WhatsApp Number *</label>
+              <input type="tel" id="m-phone" name="phone" class="form-ctrl" placeholder="Mobile / WhatsApp Number *" required maxlength="14">
             </div>
             <div class="form-group">
-              <label class="form-label" for="m-email">Email Address *</label>
-              <input type="email" id="m-email" name="email" class="form-ctrl" placeholder="your@email.com" required>
+              <label class="sr-only" for="m-email">Email Address *</label>
+              <input type="email" id="m-email" name="email" class="form-ctrl" placeholder="Email Address *" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="m-course">Program Interested In *</label>
+              <label class="sr-only" for="m-course">Select Course Interested In *</label>
               <select id="m-course" name="course" class="form-ctrl" required>
-                <option value="">-- Select Program --</option>
+                <option value="" disabled selected>Select Course Interested In *</option>
                 <option value="Data Analytics with Python + GenAI (6 Months)">Data Analytics with Python + GenAI (6 Months)</option>
-                <option value="Data Science with ML + GenAI (8 Months)">Data Science with ML + GenAI (8 Months)</option>
-                <option value="Data Analytics (4 Months)">Data Analytics (4 Months)</option>
+                <option value="Data Science with ML + GenAI (8 Months)">Data Science with Machine Learning + GenAI (8 Months)</option>
+                <option value="Data Analytics (4 Months)">Data Analytics - Power BI / SQL / Excel (4 Months)</option>
                 <option value="MIS & Reporting (4 Months)">MIS &amp; Reporting Specialist (4 Months)</option>
                 <option value="Business Analytics & AI">Generative AI &amp; Business Analytics</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="m-city">Preferred Centre / Mode *</label>
-              <select id="m-city" name="city" class="form-ctrl" required>
-                <option value="Delhi Campus">Delhi Campus (Dwarka Sector 13)</option>
-                <option value="Mumbai Campus">Mumbai Campus (Andheri East)</option>
-                <option value="Online Live Classes">Online Live Interactive Classes</option>
               </select>
             </div>
 
@@ -3400,23 +3399,21 @@
 
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div class="form-group">
-              <label class="form-label" for="s-name">Full Name *</label>
-              <input type="text" id="s-name" name="name" class="form-ctrl" placeholder="e.g. Rohit Patil" required>
+              <label class="sr-only" for="s-name">Full Name *</label>
+              <input type="text" id="s-name" name="name" class="form-ctrl" placeholder="Full Name *" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="s-phone">WhatsApp Number * (For PDF Delivery)</label>
-              <div class="phone-field-wrap">
-                <span class="flag-prefix">🇮🇳 +91</span>
-                <input type="tel" id="s-phone" name="phone" placeholder="98765 43210" required maxlength="10">
-              </div>
+              <label class="sr-only" for="s-phone">Mobile / WhatsApp Number *</label>
+              <input type="tel" id="s-phone" name="phone" class="form-ctrl" placeholder="Mobile / WhatsApp Number *" required maxlength="14">
             </div>
             <div class="form-group">
-              <label class="form-label" for="s-email">Email Address *</label>
-              <input type="email" id="s-email" name="email" class="form-ctrl" placeholder="your@email.com" required>
+              <label class="sr-only" for="s-email">Email Address *</label>
+              <input type="email" id="s-email" name="email" class="form-ctrl" placeholder="Email Address *" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="s-course">Select Program *</label>
+              <label class="sr-only" for="s-course">Select Course Interested In *</label>
               <select id="s-course" name="course" class="form-ctrl" required>
+                <option value="" disabled selected>Select Course Interested In *</option>
                 <option value="Data Analytics with Python + GenAI (6 Months)">Data Analytics with Python + GenAI (6 Months)</option>
                 <option value="Data Science with ML + GenAI (8 Months)">Data Science with Machine Learning + GenAI (8 Months)</option>
                 <option value="Data Analytics (4 Months)">Data Analytics - Power BI / SQL / Excel (4 Months)</option>
@@ -3614,6 +3611,12 @@
         }
       }
 
+      var courseVal = courseEl ? courseEl.value : '';
+      if (courseEl && !courseVal) {
+        showFormError(courseEl, 'Please select a course');
+        isValid = false;
+      }
+
       if (!isValid) {
         return false;
       }
@@ -3624,8 +3627,7 @@
         submitBtn.textContent = 'Submitting...';
       }
 
-      var courseVal = courseEl ? courseEl.value : '';
-      var cityVal = cityEl ? cityEl.value : '';
+      var cityVal = cityEl ? cityEl.value : '-';
       var actionVal = actionEl ? actionEl.value : 'Demo Enquiry';
       var sourceVal = sourceEl && sourceEl.value ? sourceEl.value : window.location.href;
 
