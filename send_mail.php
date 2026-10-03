@@ -23,6 +23,9 @@ $name   = clean(isset($_POST['name'])   ? $_POST['name']   : '');
 $phone  = clean(isset($_POST['phone'])  ? $_POST['phone']  : '');
 $email  = clean(isset($_POST['email'])  ? $_POST['email']  : '');
 $city   = clean(isset($_POST['city'])   ? $_POST['city']   : '');
+if (!$city || $city === '-' || $city === 'PDF Request') {
+    $city = 'Delhi';
+}
 $course = clean(isset($_POST['course']) ? $_POST['course'] : '');
 $source = clean(isset($_POST['source']) ? $_POST['source'] : '');
 $action = clean(isset($_POST['action_type']) ? $_POST['action_type'] : 'Demo Enquiry');

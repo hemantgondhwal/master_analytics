@@ -2144,7 +2144,7 @@
         <form id="heroForm" action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'hero')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Hero Free Demo">
-          <input type="hidden" name="city" value="-">
+          <input type="hidden" name="city" value="Delhi">
 
           <div class="hero-form-body">
             <div class="form-group">
@@ -3188,7 +3188,7 @@
         <form action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'bottom')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Footer Enquiry">
-          <input type="hidden" name="city" value="-">
+          <input type="hidden" name="city" value="Delhi">
 
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div class="form-group">
@@ -3337,7 +3337,7 @@
         <form action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'demoModal')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Popup Free Demo">
-          <input type="hidden" name="city" value="-">
+          <input type="hidden" name="city" value="Delhi">
 
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div class="form-group">
@@ -3392,7 +3392,7 @@
         <form action="send_mail.php" method="POST" onsubmit="return handleLeadSubmit(event, 'syllabusModal')">
           <input type="hidden" name="source" class="form-source-input">
           <input type="hidden" name="action_type" value="Syllabus PDF Download">
-          <input type="hidden" name="city" value="-">
+          <input type="hidden" name="city" value="Delhi">
 
           <div style="display:flex; flex-direction:column; gap:12px;">
             <div class="form-group">
@@ -3623,7 +3623,7 @@
         submitBtn.textContent = 'Submitting...';
       }
 
-      var cityVal = cityEl ? cityEl.value : '-';
+      var cityVal = (cityEl && cityEl.value && cityEl.value !== '-') ? cityEl.value : 'Delhi';
       var actionVal = actionEl ? actionEl.value : 'Demo Enquiry';
       var sourceVal = sourceEl && sourceEl.value ? sourceEl.value : window.location.href;
 

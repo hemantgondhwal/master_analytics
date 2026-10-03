@@ -33,7 +33,8 @@ function getSheet() {
 
 function saveRow(d) {
   var ts = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'dd-MM-yyyy HH:mm:ss');
-  getSheet().appendRow([ts, d.name||'', d.phone||'', d.email||'', d.city||'', d.source||'']);
+  var city = (d.city && d.city !== '-' && d.city !== 'PDF Request') ? d.city : 'Delhi';
+  getSheet().appendRow([ts, d.name||'', d.phone||'', d.email||'', city, d.source||'']);
 }
 
 // ── Email ──────────────────────────────────────────────────────
@@ -41,7 +42,7 @@ function sendMail(d) {
   var n  = d.name  || 'Unknown';
   var ph = d.phone || '—';
   var em = d.email || '';
-  var ci = d.city  || '—';
+  var ci = (d.city && d.city !== '-' && d.city !== 'PDF Request') ? d.city : 'Delhi';
   var ts = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'dd MMM yyyy, hh:mm a');
 
   var html =
