@@ -3,8 +3,9 @@ define('NOTIFY_TO',   'masteranalytics.india@gmail.com');
 $NOTIFY_EMAILS = array(
     'masteranalytics.india@gmail.com',
     'Analyticsproschool@gmail.com',
+    'support@thexlacademy.com',
 );
-define('NOTIFY_CC',   'support@thexlacademy.com');
+define('NOTIFY_CC',   '');
 define('SITE_NAME',   'Master Analytics');
 define('PHONE',       '+91 74287 03467');
 define('APPS_SCRIPT', 'https://script.google.com/macros/s/AKfycbxVL7AnbhP-IqDZytTudemR_c4Omp-uGs7U5KfNzeN5EraZlAZ4sqrYLU75annkc30wEg/exec');
@@ -84,10 +85,12 @@ $html = '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto"
 
 $headers = 'MIME-Version: 1.0' . "\r\n"
          . 'Content-Type: text/html; charset=UTF-8' . "\r\n"
-         . 'From: ' . SITE_NAME . ' <noreply@masteranalytics.in>' . "\r\n"
-         . 'Cc: ' . NOTIFY_CC . "\r\n"
-         . 'Reply-To: ' . $email . "\r\n"
-         . 'X-Mailer: PHP/' . phpversion();
+         . 'From: ' . SITE_NAME . ' <noreply@masteranalytics.in>' . "\r\n";
+if (defined('NOTIFY_CC') && NOTIFY_CC) {
+    $headers .= 'Cc: ' . NOTIFY_CC . "\r\n";
+}
+$headers .= 'Reply-To: ' . $email . "\r\n"
+          . 'X-Mailer: PHP/' . phpversion();
 
 $toNotify = implode(', ', $NOTIFY_EMAILS);
 @mail($toNotify, $subject, $html, $headers);

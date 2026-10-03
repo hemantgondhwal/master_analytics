@@ -14,8 +14,7 @@
 
 var SHEET_ID   = '1l6GjVtcNll1H9osKDKbMmxB35z5vRbvTar5SaMzCLfg';
 var SHEET_NAME = 'Leads';
-var NOTIFY_TO  = 'masteranalytics.india@gmail.com';
-var NOTIFY_CC  = 'support@thexlacademy.com';
+var NOTIFY_TO  = 'masteranalytics.india@gmail.com, support@thexlacademy.com';
 
 // ── Sheet ──────────────────────────────────────────────────────
 function getSheet() {
@@ -59,7 +58,7 @@ function sendMail(d) {
     '<div style="background:#f3f4f6;padding:12px 28px;border-radius:0 0 10px 10px;font-size:11px;color:#9ca3af;border:1px solid #e5e7eb;border-top:none">Master Analytic — Automated lead alert</div>' +
     '</div>';
 
-  MailApp.sendEmail({ to: NOTIFY_TO, cc: NOTIFY_CC, subject: 'New Lead: Master Analytics - ' + n, htmlBody: html, replyTo: em || NOTIFY_TO });
+  MailApp.sendEmail({ to: NOTIFY_TO, subject: 'New Lead: Master Analytics - ' + n, htmlBody: html, replyTo: em || NOTIFY_TO });
 
   // auto-reply to student
   if (em) {
